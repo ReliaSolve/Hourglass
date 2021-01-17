@@ -35,7 +35,7 @@ static ::std::map<hrgls::datablob::DataBlobSource*, std::vector<PyObject*> >
  * function and pass it the blob and the userdata that was registered. */
 static void hrgls_Python_DataBlob_Callback(hrgls::datablob::DataBlob &blob, void *userData)
 {
-  /* Return it we don't have anything to do. */
+  /* Return if we don't have anything to do. */
   if (userData == nullptr) {
     return;
   }
@@ -81,7 +81,7 @@ static ::std::map<hrgls::API*, std::vector<PyObject*> >
  * function and pass it the message and the userdata that was registered. */
 static void hrgls_Python_Log_Callback(hrgls::Message &message, void *userData)
 {
-  /* Return it we don't have anything to do. */
+  /* Return if we don't have anything to do. */
   if (userData == nullptr) {
     return;
   }

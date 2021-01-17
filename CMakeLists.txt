@@ -70,7 +70,7 @@ if (BUILD_PYTHON)
       ${CMAKE_BINARY_DIR}
       ${CMAKE_INSTALL_PREFIX}/include
     )
-    # -threads: Release the Python Global Inerpreter lock inside C functions.
+    # -threads: Release the Python Global Interpreter lock inside C functions.
     #           This enables multiple threads to run at the same time but
     #           requires us to obtain the lock inside our functions that use
     #           Python or PyC objects.
