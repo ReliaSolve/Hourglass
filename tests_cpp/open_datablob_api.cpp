@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include <hrgls_api.hpp>
+#include <hrgls_api_defs.hpp>
 
 int main(int argc, const char *argv[])
 {

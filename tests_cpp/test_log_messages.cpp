@@ -19,7 +19,7 @@
 // that the filtering of messages by level is working.
 
 #include <iostream>
-#include <hrgls_api.hpp>
+#include <hrgls_api_defs.hpp>
 
 void HandleMessageCallback(hrgls::Message &message, void *userData)
 {

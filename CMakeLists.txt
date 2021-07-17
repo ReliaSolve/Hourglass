@@ -85,9 +85,9 @@ include(GNUInstallDirs)
 
 # Win-specific: we want shared libs (dlls) in same dir as exe files.
 if(WIN32)
-	set(DISPLAYSERVERCLIENT_SHARED_LIBRARY_DIR "${CMAKE_INSTALL_BINDIR}")
+	set(hrgls_SHARED_LIBRARY_DIR "${CMAKE_INSTALL_BINDIR}")
 else()
-	set(DISPLAYSERVERCLIENT_SHARED_LIBRARY_DIR "${CMAKE_INSTALL_LIBDIR}")
+	set(hrgls_SHARED_LIBRARY_DIR "${CMAKE_INSTALL_LIBDIR}")
 endif()
 
 set (hrgls_SOURCES hrgls_internal_wrap.cpp)
@@ -108,7 +108,7 @@ set (hrgls_HEADERS
   hrgls_Message_impl.hpp
 )
 
-add_library(hrgls SHARED ${hrgls_SOURCES} ${hrgls_HEADERS})
+add_library(hrgls ${hrgls_SOURCES} ${hrgls_HEADERS})
 set_target_properties(hrgls PROPERTIES LINKER_LANGUAGE CXX)
 # Hide all symbols that are not explicitly exported from the library
 set_target_properties(hrgls PROPERTIES C_VISIBILITY_PRESET hidden)
