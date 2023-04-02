@@ -1,6 +1,9 @@
-cmake_minimum_required(VERSION 3.1.0)
-project(Hourglass_interface)
+cmake_minimum_required(VERSION 3.18.0)
+project(Hourglass_interface LANGUAGES CXX C)
 
+#-----------------------------------------------------------------------------
+# Set your favorite C++ standard for compiling the internal files.  The library
+# will export things as extern "C" so this will not impact client programs.
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -75,7 +78,11 @@ if (BUILD_PYTHON)
     #           requires us to obtain the lock inside our functions that use
     #           Python or PyC objects.
     set(CMAKE_SWIG_FLAGS "-threads")
-    set_source_files_properties(hrgls.i PROPERTIES CPLUSPLUS ON)
+    if(UNIX AND NOT APPLE)
+      list(APPEND CMAKE_SWIG_FLAGS "-DSWIGWORDSIZE64")
+    endif()
+    # Build using C++
+    set_source_files_properties(hrglspy.i PROPERTIES CPLUSPLUS ON)
 endif (BUILD_PYTHON)
 
 #-----------------------------------------------------------------------------
@@ -108,8 +115,7 @@ set (hrgls_HEADERS
   hrgls_Message_impl.hpp
 )
 
-add_library(hrgls ${hrgls_SOURCES} ${hrgls_HEADERS})
-set_target_properties(hrgls PROPERTIES LINKER_LANGUAGE CXX)
+add_library(hrgls SHARED ${hrgls_SOURCES} ${hrgls_HEADERS})
 # Hide all symbols that are not explicitly exported from the library
 set_target_properties(hrgls PROPERTIES C_VISIBILITY_PRESET hidden)
 set_target_properties(hrgls PROPERTIES CXX_VISIBILITY_PRESET hidden)
@@ -137,9 +143,8 @@ install(FILES ${PROJECT_BINARY_DIR}/hrgls_export.h
 )
 
 if (BUILD_PYTHON)
-    SWIG_ADD_MODULE(hrgls python hrgls.i)
-    SWIG_LINK_LIBRARIES(hrgls hrgls)
-    SWIG_LINK_LIBRARIES(hrgls stdc++)
+    swig_add_library(hrglspy TYPE MODULE LANGUAGE python SOURCES hrglspy.i)
+    SWIG_LINK_LIBRARIES(hrglspy hrgls)
 endif (BUILD_PYTHON)
 
 #-----------------------------------------------------------------------------

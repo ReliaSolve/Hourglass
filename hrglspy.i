@@ -1,10 +1,7 @@
 /* IMPORTANT: Be sure to link the library against the hrgls library in
  * the CMakeLists.txt file. */
 
-%module hrgls
-
-/** @todo This may not be needed on all architectures... */
-#define SWIGWORDSIZE64 
+%module hrglspy
 
 /* Include required definition files */
 %include "cpointer.i"

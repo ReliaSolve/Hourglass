@@ -15,7 +15,7 @@
  */
 
 #include <iostream>
-#include <hrgls_api_defs.hpp>
+#include <hrgls_api.hpp>
 
 void HandleBlobCallback(hrgls::datablob::DataBlob &blob, void *userData)
 {
