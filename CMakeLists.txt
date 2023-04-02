@@ -31,7 +31,8 @@ include (GenerateExportHeader)
 # Checking for optional and required packages
 
 find_package(SWIG)
-find_package(PythonLibs)
+set(Python3_FIND_REGISTRY "LAST")
+find_package(Python3 COMPONENTS Development)
 find_package(Doxygen)
 
 #-----------------------------------------------------------------------------
@@ -39,7 +40,7 @@ find_package(Doxygen)
 option(BUILD_EXAMPLES "Build examples" ON)
 option(BUILD_TESTS "Build test programs" ON)
 option(BUILD_NULL_IMPLEMENTATION "Build NULL library implementation" ON)
-if (SWIG_FOUND AND PYTHONLIBS_FOUND)
+if (SWIG_FOUND AND PYTHON3_FOUND)
   option(BUILD_PYTHON "Generate Python library" ON)
 endif()
 
@@ -68,7 +69,8 @@ endif (BUILD_DOXYGEN)
 
 if (BUILD_PYTHON)
     include(${SWIG_USE_FILE})
-    include_directories(${PYTHON_INCLUDE_PATH}
+    include_directories(
+      ${Python3_INCLUDE_DIRS}
       ${CMAKE_CURRENT_SOURCE_DIR}
       ${CMAKE_BINARY_DIR}
       ${CMAKE_INSTALL_PREFIX}/include
@@ -145,6 +147,7 @@ install(FILES ${PROJECT_BINARY_DIR}/hrgls_export.h
 if (BUILD_PYTHON)
     swig_add_library(hrglspy TYPE MODULE LANGUAGE python SOURCES hrglspy.i)
     SWIG_LINK_LIBRARIES(hrglspy hrgls)
+    swig_link_libraries(hrglspy ${Python3_LIBRARIES})
 endif (BUILD_PYTHON)
 
 #-----------------------------------------------------------------------------

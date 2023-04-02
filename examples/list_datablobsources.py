@@ -1,5 +1,6 @@
 # Import the hrgls library
-import hrgls,sys
+import hrglspy as hrgls
+import sys
 
 # Open an API object with default parameters and verify that its status is okay.
 api = hrgls.API()

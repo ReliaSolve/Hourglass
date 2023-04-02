@@ -1,5 +1,5 @@
 # Import the hrgls library
-import hrgls
+import hrglspy as hrgls
 import sys
 import ctypes
 import time
